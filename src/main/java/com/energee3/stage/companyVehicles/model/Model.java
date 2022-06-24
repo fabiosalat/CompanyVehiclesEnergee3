@@ -1,8 +1,6 @@
 package com.energee3.stage.companyVehicles.model;
 
-import java.time.Year;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

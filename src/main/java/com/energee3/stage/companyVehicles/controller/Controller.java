@@ -1,17 +1,18 @@
 package com.energee3.stage.companyVehicles.controller;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.energee3.stage.companyVehicles.model.Bookings;
 import com.energee3.stage.companyVehicles.model.Employees;
+import com.energee3.stage.companyVehicles.model.Utilization;
 import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
 import com.energee3.stage.companyVehicles.repository.EmployeesRepository;
@@ -71,5 +72,18 @@ public class Controller {
 		return bookings.getHistory("WGHBGHR");
 	}
 	
+	@GetMapping("/newBooking")
+	@Transactional
+	public int newBooking() {
+		return bookings.insertNewBooking(1, "WGHBGHR", LocalDateTime.now(), LocalDateTime.of(2022, 06, 28, 8, 0));
+	}
+	
+	@PostMapping("/insertKmNote")
+	public void insertKmNote() {
+		Utilization util = new Utilization();
+		util.setBookingId(null);
+		util.setKm(null);
+		utilization.save(util);
+	}
 	
 }
