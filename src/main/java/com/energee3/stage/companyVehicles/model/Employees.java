@@ -18,7 +18,7 @@ import org.hibernate.annotations.Check;
 @Table(name="employees")
 public class Employees {
 	private enum Sex {
-		M, F, nonbinary
+		M, F, non_binary
 	}
 	
 	@Id
