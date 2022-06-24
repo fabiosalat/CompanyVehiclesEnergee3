@@ -34,14 +34,11 @@ public class Controller {
 	@GetMapping("/getBookings")
 	public Bookings getAllBookings(){
 		return bookings.findById(1).get();
-	
 	}
 	
 	@GetMapping("/getEmployees")
 	public Employees getAllEmployees(){
 		return employees.findById(1).get();
-	
 	}
-	
 	
 }

@@ -4,15 +4,23 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Check;
+
 @Entity
 @Table(name="employees")
 public class Employees {
+	private enum Sex {
+		M, F, nonbinary
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -23,17 +31,19 @@ public class Employees {
 	@Column(name = "last_name", columnDefinition = "VARCHAR(100)", nullable = false)
 	private String lastName;
 	
-	//Sistemare controlli
-	@Column(name="sex")
-	private String sex;
+	@Enumerated(EnumType.STRING)
+	@Column(name="sex", nullable = false)
+	private Sex sex;
 	
 	@Column(name = "phone_number", columnDefinition = "VARCHAR(10)", nullable = false)
 	private String phoneNumber;
 	
 	@Column(name = "email", columnDefinition = "VARCHAR(100)", nullable = false, unique = true)
+	@Check(constraints = "email LIKE '%@%.%'")
 	private String email;
 	
 	@Column(name = "tax_code", columnDefinition = "VARCHAR(16)", nullable = false, unique = true)
+	@Check(constraints = "LENGTH(tax_code) = 16")
 	private String taxCode;
 	
 	@OneToMany(mappedBy = "employeeId")
@@ -63,11 +73,11 @@ public class Employees {
 		this.lastName = lastName;
 	}
 
-	public String getSex() {
+	public Sex getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
 
