@@ -3,6 +3,7 @@ package com.energee3.stage.companyVehicles.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.energee3.stage.companyVehicles.model.Bookings;
 import com.energee3.stage.companyVehicles.model.Employees;
@@ -31,14 +32,14 @@ public class Controller {
 	private VehiclesRepository vehicles;
 	
 	@GetMapping("/getBookings")
-	public Iterable<Bookings> getAllBookings(){
-		return bookings.findAll();
+	public Bookings getAllBookings(){
+		return bookings.findById(1).get();
 	
 	}
 	
 	@GetMapping("/getEmployees")
-	public Iterable<Employees> getAllEmployees(){
-		return employees.findAll();
+	public Employees getAllEmployees(){
+		return employees.findById(1).get();
 	
 	}
 	

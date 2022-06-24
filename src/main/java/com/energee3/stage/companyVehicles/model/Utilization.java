@@ -1,8 +1,7 @@
 package com.energee3.stage.companyVehicles.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,4 +38,54 @@ public class Utilization {
 	
 	@Column(name="text")
 	private String note;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Bookings getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(Bookings bookingId) {
+		this.bookingId = bookingId;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public BigDecimal getKm() {
+		return km;
+	}
+
+	public void setKm(BigDecimal km) {
+		this.km = km;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+	
+	
 }

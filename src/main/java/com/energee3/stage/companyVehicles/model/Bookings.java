@@ -1,6 +1,7 @@
 package com.energee3.stage.companyVehicles.model;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.mapping.Set;
 
 @Entity
 @Table(name = "bookings")
@@ -41,7 +40,7 @@ public class Bookings {
 	private Date endDate;
 	
 	@OneToMany(mappedBy = "bookingId")
-	private Set utilizations;
+	private Set<Utilization> utilizations;
 
 	public Integer getId() {
 		return id;
@@ -82,14 +81,17 @@ public class Bookings {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	/*
 
-	public Set getUtilizations() {
+	public Set<Utilization> getUtilizations() {
 		return utilizations;
 	}
 
-	public void setUtilizations(Set utilizations) {
+	public void setUtilizations(Set<Utilization> utilizations) {
 		this.utilizations = utilizations;
 	}
 	
+	*/
 	
 }
