@@ -84,7 +84,7 @@ public class Bookings {
 	}
 
 	public void setUtilizations(Set<Utilization> utilizations) {
-		this.utilizations = utilizations;
+		this.utilizations = utilizations; 
 	}
 	
 	 */	
