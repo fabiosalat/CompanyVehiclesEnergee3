@@ -14,17 +14,13 @@ import com.energee3.stage.companyVehicles.model.Vehicles;
 
 public interface BookingsRepository extends CrudRepository<Bookings, Integer> {
 	@Procedure("new_booking")
-<<<<<<< HEAD
-	public int insertNewBooking(@Param("employee") int employee, 
-			@Param("vehicle") String targa, @Param("start_d") LocalDateTime start, @Param("end_d") LocalDateTime end);
-	
+	public int insertNewBooking(@Param("employee") Integer employee, 
+			@Param("vehicle") String targa, @Param("start_d") Timestamp start, @Param("end_d") Timestamp end);
+
 	public List<Bookings> findAllBookingsByEmployeeId(Employees employeeId);
 	
 	public List<Bookings> findAllBookingsByVehicleId(Vehicles vehicleId);
 	
 	public List<Bookings> findAllBookingsByStartDate(Timestamp startDate, Timestamp endDate);
-=======
-	public int insertNewBooking(@Param("employee") Integer employee, 
-			@Param("vehicle") String targa, @Param("start_d") Timestamp start, @Param("end_d") Timestamp end);
->>>>>>> branch 'main' of https://github.com/fabiosalat/CompanyVehiclesEnergee3
+
 }
