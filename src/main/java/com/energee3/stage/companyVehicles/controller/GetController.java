@@ -1,17 +1,14 @@
 package com.energee3.stage.companyVehicles.controller;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,37 +44,60 @@ public class GetController {
 	@Autowired
 	private CustomCrudRepository customRepository;
 	
-	@GetMapping("/getBookings")
-	public Iterable<Bookings> getAllBookings(){
-		return bookings.findAll();
-	}
-	
-	@GetMapping("/getEmployees")
-	public Employees getAllEmployees(){
-		return employees.findById(1).get();
-	}
 	
 	@GetMapping("/available")
+	@Transactional
 	public List<Vehicles> getAvailableVehicles(){
 		return vehicles.getAvailableVehicles(LocalDateTime.now(), LocalDateTime.of(2022, 06, 28, 8, 0));
 	}
 	
-	@GetMapping("/getHistory")
+	@GetMapping("/history")
 	@Transactional
-	public List<Map<String, Object>> getHistory(@RequestParam("license_plate") String licensePlate) {
+	public List<Map<String, Object>> getHistory(@PathVariable("license_plate") String licensePlate) {
 		return customRepository.getHistory(licensePlate);
 	}
 	
-	@GetMapping("/newBooking")
-	@Transactional
-	public int newBooking() {
-		return bookings.insertNewBooking(1, "WGHBGHR", LocalDateTime.now(), LocalDateTime.of(2022, 06, 28, 8, 0));
-	}
-	
-	@GetMapping("/getUtilization")
-	public Iterable<Utilization> getUtilization(){
+	@GetMapping("/utilization")
+	public Iterable<Utilization> getUtilizations(){
 		return utilization.findAll();
 	}
 	
+	@GetMapping("/utilizationById")
+	public Utilization getUtilizationById(@PathVariable("utilization_id") Integer utilizationId) {
+		return utilization.findById(utilizationId).get();
+	}
 	
+	@GetMapping("/bookings")
+	public Iterable<Bookings> getAllBookings(){
+		return bookings.findAll();
+	}
+	
+	@GetMapping("/bookingsById/{booking_id}")
+	public Bookings getBookingsById(@PathVariable("booking_id") Integer bookingId) {
+		return bookings.findById(bookingId).get();
+	}
+	
+	@GetMapping("/bookingsByEmployeeId/{employee_id}")
+	public List<Bookings> getBookingsByEmployeeId(@PathVariable("employee_id") Employees employeeId) {
+		return bookings.findAllBookingsByEmployeeId(employeeId);
+	}
+	
+	/*@GetMapping("/bookingsByVehicleId/{vehicle_id}")
+	public List<Bookings> getBookingsByVehicleId(@PathVariable("vehicle_id") Vehicles vehicleId) {
+		return bookings.findAllBookingsByVehicleId(vehicleId);
+	}*/
+	
+	//@GetMapping("/bookingsByPeriod/{start_d}")
+	@GetMapping("/bookingsByPeriod")
+	public List<Bookings> getBookingsByPeriod(@RequestParam("start_d") Timestamp startDate) {
+		return bookings.findAllBookingsByStartDate(startDate);
+	}
+	
+	@GetMapping("/employees")
+	public Employees getAllEmployees(){
+		return employees.findById(1).get();
+	}
+
+	
+
 }
