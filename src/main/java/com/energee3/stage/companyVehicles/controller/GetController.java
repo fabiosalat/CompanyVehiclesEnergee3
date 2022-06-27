@@ -87,11 +87,12 @@ public class GetController {
 		return bookings.findAllBookingsByVehicleId(vehicleId);
 	}*/
 	
-	//@GetMapping("/bookingsByPeriod/{start_d}")
-	@GetMapping("/bookingsByPeriod")
-	public List<Bookings> getBookingsByPeriod(@RequestParam("start_d") Timestamp startDate) {
-		return bookings.findAllBookingsByStartDate(startDate);
-	}
+	
+	//Servirebbe un find between
+	/*@GetMapping("/bookingsByPeriod/{start_d}")
+	public List<Bookings> getBookingsByPeriod(@PathVariable("start_d") Timestamp startDate, @PathVariable("end_d") Timestamp endDate) {
+		return bookings.findAllBookingsByStartDate(startDate, endDate);
+	}*/
 	
 	@GetMapping("/employees")
 	public Employees getAllEmployees(){
