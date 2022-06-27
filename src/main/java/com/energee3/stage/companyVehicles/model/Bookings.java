@@ -1,6 +1,6 @@
 package com.energee3.stage.companyVehicles.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,14 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "bookings")
 public class Bookings {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -31,13 +29,11 @@ public class Bookings {
 	@JoinColumn(name= "vehicle_id", referencedColumnName = "license_plate", columnDefinition = "VARCHAR(7)", nullable = false)
 	private Vehicles vehicleId;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name= "start_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT TIMESTAMP", nullable = false)
-	private Date startDate;
+	private Timestamp startDate;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name= "end_date", nullable = false)
-	private Date endDate;
+	private Timestamp endDate;
 	
 	@OneToMany(mappedBy = "bookingId")
 	private Set<Utilization> utilizations;
@@ -66,19 +62,19 @@ public class Bookings {
 		this.vehicleId = vehicleId;
 	}
 
-	public Date getStartDate() {
+	public Timestamp getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Timestamp startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
 	

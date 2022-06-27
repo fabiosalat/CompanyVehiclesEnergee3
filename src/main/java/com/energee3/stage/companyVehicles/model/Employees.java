@@ -22,7 +22,7 @@ public class Employees {
 	}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name = "first_name", columnDefinition = "VARCHAR(100)", nullable = false)

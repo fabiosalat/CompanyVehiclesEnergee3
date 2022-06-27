@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Manufacturer {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "name", columnDefinition = "VARCHAR(50)", nullable = false, unique = true)

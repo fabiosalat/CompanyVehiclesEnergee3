@@ -1,7 +1,8 @@
 package com.energee3.stage.companyVehicles.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,20 +19,18 @@ import javax.persistence.TemporalType;
 @Table(name="utilization")
 public class Utilization {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Integer id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "booking_id", referencedColumnName = "id",  nullable = false)
 	private Bookings bookingId;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name= "start_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT TIMESTAMP", nullable = false)
-	private Date startDate;
+	private Timestamp startDate;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name= "end_date", nullable = false)
-	private Date endDate;
+	private Timestamp endDate;
 	
 	@Column(name="km", precision = 10, scale = 2, nullable = false)
 	private BigDecimal km;
@@ -55,19 +54,19 @@ public class Utilization {
 		this.bookingId = bookingId;
 	}
 
-	public Date getStartDate() {
+	public Timestamp getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Timestamp startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
 

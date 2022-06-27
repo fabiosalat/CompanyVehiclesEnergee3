@@ -1,9 +1,9 @@
 package com.energee3.stage.companyVehicles.controller;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +29,7 @@ import com.energee3.stage.companyVehicles.repository.VehiclesRepository;
 
 @RestController
 @RequestMapping("/")
-public class Controller {
+public class PutController {
 
 	@Autowired
 	private BookingsRepository bookings;
@@ -59,19 +59,6 @@ public class Controller {
 		return vehicles.getAvailableVehicles(LocalDateTime.now(), LocalDateTime.of(2022, 06, 28, 8, 0));
 	}
 	
-	/*
-	@GetMapping("/testProcedure")
-	public Vehicles testProcedure() {
-		return vehicles.provaProcedure("OLKIHYG");
-	}
-	
-	@GetMapping("/testProcedure2")
-	@Transactional
-	public Vehicles testProcedure2() {
-		return vehicles.provaProcedure2("WGHBGHR");
-	}
-	*/
-	
 	@GetMapping("/getHistory")
 	@Transactional
 	public List<Map<String, Object>> getHistory(@RequestParam("license_plate") String licensePlate) {
@@ -93,10 +80,10 @@ public class Controller {
 			String lastName = (String) myObj[3];
 			myMap.put("last_name", lastName);
 			
-			Date startDate = (Date) myObj[4];
+			Timestamp startDate = (Timestamp) myObj[4];
 			myMap.put("start_date", startDate);
 			
-			Date endDate = (Date) myObj[5];
+			Timestamp endDate = (Timestamp) myObj[5];
 			myMap.put("end_date", endDate);
 			
 			BigDecimal km = (BigDecimal) myObj[6];
