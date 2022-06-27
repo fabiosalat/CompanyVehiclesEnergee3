@@ -44,6 +44,7 @@ public class GetController {
 	private UtilizationRepository utilization;
 	@Autowired
 	private VehiclesRepository vehicles;
+	@Autowired
 	private CustomCrudRepository customRepository;
 	
 	@GetMapping("/getBookings")

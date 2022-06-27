@@ -10,7 +10,9 @@ import java.util.Map;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CustomCrudRepository extends CrudRepository<Object, Integer> {
+import com.energee3.stage.companyVehicles.model.Bookings;
+
+public interface CustomCrudRepository extends CrudRepository<Bookings, Integer> {
 	
 	default public List<Map<String, Object>> getHistory(String licensePlate){
 		List<Map<String, Object>> myMaps = new ArrayList<Map<String, Object>>();
