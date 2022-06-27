@@ -12,7 +12,7 @@ import com.energee3.stage.companyVehicles.model.Vehicles;
 public interface VehiclesRepository extends CrudRepository<Vehicles, Integer> {
 	@Query(value = "CALL available(:start_d, :end_d);", nativeQuery = true)
 	public List<Vehicles> getAvailableVehicles(LocalDateTime start_d, LocalDateTime end_d);
-	
+
 	/*
 	@Query(value = "CALL myStoredProcedure(:targa);", nativeQuery = true)
 	public Vehicles provaProcedure(String targa);
@@ -20,5 +20,10 @@ public interface VehiclesRepository extends CrudRepository<Vehicles, Integer> {
 	@Procedure("myStoredProcedure")
 	public Vehicles provaProcedure2(String targa);
 	*/
+	
+	
+	@Query(value = "CALL history(:car_plate);", nativeQuery = true)
+	public Iterable<Object[]> history(String car_plate);
+	
 
 }
