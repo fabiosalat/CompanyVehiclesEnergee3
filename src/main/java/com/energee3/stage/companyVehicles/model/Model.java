@@ -26,12 +26,30 @@ public class Model {
 	@Column(name = "year_prod", nullable = false)
 	private Integer yearProd;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "manufacturer_id", referencedColumnName = "id",  nullable = false)
 	private Manufacturer manufacturerId;
 	
-	@OneToMany(mappedBy = "modelId")
+	@OneToMany(mappedBy = "modelId", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
 	private Set<Vehicles> vehicles;
+	
+	/**
+	 * CONSTRUCTORS
+	 */
+	
+	public Model() {
+	}
+	
+	public Model(String name, Integer yearProd, Manufacturer manufacturerId) {
+		this.name = name;
+		this.yearProd = yearProd;
+		this.manufacturerId = manufacturerId;
+	}
+
+
+	/**
+	 * GETTERS AND SETTERS
+	 */
 
 	public Integer getId() {
 		return id;
@@ -65,13 +83,15 @@ public class Model {
 		this.manufacturerId = manufacturerId;
 	}
 
-	/*public Set<Vehicles> getVehicles() {
+	/*
+	public Set<Vehicles> getVehicles() {
 		return vehicles;
 	}
+	*/
 
 	public void setVehicles(Set<Vehicles> vehicles) {
 		this.vehicles = vehicles;
-	}*/
+	}
 	
 	
 }

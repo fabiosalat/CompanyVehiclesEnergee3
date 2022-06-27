@@ -28,12 +28,29 @@ public class Vehicles {
 	@Column(name = "fuel", nullable = false)
 	private Fuel fuel;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "model_id", referencedColumnName = "id",  nullable = false)
 	private Model modelId;
 	
 	@OneToMany(mappedBy = "vehicleId")
 	private Set<Bookings> bookings;
+	
+	/**
+	 * CONSTRUCTORS
+	 */
+
+	public Vehicles() {
+	}
+
+	public Vehicles(String id, Fuel fuel, Model modelId) {
+		this.id = id;
+		this.fuel = fuel;
+		this.modelId = modelId;
+	}
+	
+	/**
+	 * GETTERS AND SETTERS
+	 */
 
 	public String getId() {
 		return id;
@@ -59,13 +76,15 @@ public class Vehicles {
 		this.modelId = modelId;
 	}
 
-	/*public Set<Bookings> getBookings() {
+	/*
+	public Set<Bookings> getBookings() {
 		return bookings;
 	}
+	*/
 
 	public void setBookings(Set<Bookings> bookings) {
 		this.bookings = bookings;
-	}*/
+	}
 	
 	
 }

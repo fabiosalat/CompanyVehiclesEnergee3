@@ -21,11 +21,11 @@ public class Bookings {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "employee_id", referencedColumnName = "id",  nullable = false)
 	private Employees employeeId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name= "vehicle_id", referencedColumnName = "license_plate", columnDefinition = "VARCHAR(7)", nullable = false)
 	private Vehicles vehicleId;
 	
@@ -35,9 +35,27 @@ public class Bookings {
 	@Column(name= "end_date", nullable = false)
 	private Timestamp endDate;
 	
-	@OneToMany(mappedBy = "bookingId")
+	@OneToMany(mappedBy = "bookingId", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
 	private Set<Utilization> utilizations;
+	
+	/**
+	 * CONSTRUCTORS
+	 */
+	
+	public Bookings() {
+	}
 
+	public Bookings(Employees employeeId, Vehicles vehicleId, Timestamp startDate, Timestamp endDate) {
+		this.employeeId = employeeId;
+		this.vehicleId = vehicleId;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	/**
+	 * GETTERS AND SETTERS
+	 */
+	
 	public Integer getId() {
 		return id;
 	}
@@ -82,10 +100,11 @@ public class Bookings {
 	public Set<Utilization> getUtilizations() {
 		return utilizations;
 	}
+	*/
 
 	public void setUtilizations(Set<Utilization> utilizations) {
 		this.utilizations = utilizations;
 	}
 	
-	 */	
+	 
 }

@@ -49,6 +49,28 @@ public class Employees {
 	@OneToMany(mappedBy = "employeeId")
 	private Set<Bookings> bookings;
 
+	/**
+	 * CONSTRUCTORS
+	 */
+	
+	public Employees() {
+		super();
+	}
+
+	public Employees(String firstName, String lastName, Sex sex, String phoneNumber, String email, String taxCode) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.sex = sex;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.taxCode = taxCode;
+	}
+
+	/**
+	 * GETTERS AND SETTERS
+	 */
+	
 	public Integer getId() {
 		return id;
 	}
@@ -104,14 +126,17 @@ public class Employees {
 	public void setTaxCode(String taxCode) {
 		this.taxCode = taxCode;
 	}
-/*
+	
+	/*
 	public Set<Bookings> getBookings() {
 		return bookings;
 	}
 
+	*/
+	
 	public void setBookings(Set<Bookings> bookings) {
 		this.bookings = bookings;
 	}
-	*/
+	
 	
 }
