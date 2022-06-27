@@ -1,23 +1,16 @@
 package com.energee3.stage.companyVehicles.controller;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.energee3.stage.companyVehicles.model.Bookings;
 import com.energee3.stage.companyVehicles.model.Employees;
+import com.energee3.stage.companyVehicles.model.Manufacturer;
+import com.energee3.stage.companyVehicles.model.Model;
 import com.energee3.stage.companyVehicles.model.Utilization;
 import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
@@ -46,12 +39,48 @@ public class PostController {
 	private VehiclesRepository vehicles;
 	private CustomCrudRepository customRepository;
 	
-	@PostMapping("/insertKmNote")
-	public void insertKmNote() {
-		Utilization util = new Utilization();
-		util.setBookingId(null);
-		util.setKm(null);
-		utilization.save(util);
+	
+	@PostMapping("/newBooking")
+	@Transactional
+	public int newBooking(@RequestBody Bookings newBooking) {
+		return bookings.insertNewBooking(newBooking.getEmployeeId(), newBooking.getVehicleId(), newBooking.getStartDate(), newBooking.getEndDate());
 	}
+	
+	@PostMapping("/newKmNote")
+	@Transactional
+	public void newKmNote(@RequestBody Utilization util) {
+		utilization.insertKmNote(util.getBookingId(), util.getStartDate(), util.getEndDate(), util.getKm(), util.getNote());
+	}
+	
+	
+	@PostMapping(value = "/insertKmNote", consumes = "application/json", produces = "application/json")
+	public void insertKmNote(@RequestBody Utilization newUtilization) {
+		utilization.save(newUtilization);
+	}
+	
+	@PostMapping("/newEmployee")
+	public Employees insertNewEmployee(@RequestBody Employees newEmployee) {
+		return employees.save(newEmployee);
+		
+	}
+	
+	@PostMapping("/newVehicle")
+	public Vehicles insertNewVehicle(@RequestBody Vehicles newVehicles) {
+		return vehicles.save(newVehicles);
+		
+	}
+	
+	@PostMapping("/newManufacturer")
+	public Manufacturer insertNewManufacturer(@RequestBody Manufacturer newManufacturer) {
+		return manufacturer.save(newManufacturer);
+		
+	}
+	
+	@PostMapping("/newModel")
+	public Model insertNewModel(@RequestBody Model newModel) {
+		return model.save(newModel);
+		
+	}
+	
 	
 }

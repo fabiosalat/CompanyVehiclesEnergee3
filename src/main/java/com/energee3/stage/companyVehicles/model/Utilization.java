@@ -22,7 +22,7 @@ public class Utilization {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Integer id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "booking_id", referencedColumnName = "id",  nullable = false)
 	private Bookings bookingId;
 	
@@ -37,6 +37,32 @@ public class Utilization {
 	
 	@Column(name="note")
 	private String note;
+	
+	/**
+	 * CONSTRUCTORS
+	 */
+	
+	public Utilization() {
+	}
+
+	public Utilization(Bookings bookingId, Timestamp startDate, Timestamp endDate, BigDecimal km, String note) {
+		this.bookingId = bookingId;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.km = km;
+		this.note = note;
+	}
+
+	public Utilization(Bookings bookingId, Timestamp startDate, Timestamp endDate, BigDecimal km) {
+		this.bookingId = bookingId;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.km = km;
+	}
+	
+	/**
+	 * GETTERS AND SETTERS
+	 */
 
 	public Integer getId() {
 		return id;

@@ -2,6 +2,7 @@ package com.energee3.stage.companyVehicles.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,9 +22,25 @@ public class Manufacturer {
 	@Column(name = "name", columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
 	private String name;
 
-	@OneToMany(mappedBy = "manufacturerId")
+	@OneToMany(mappedBy = "manufacturerId", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
 	private Set<Model> models;
+	
+	/**
+	 * CONSTRUCTORS
+	 */
 
+	public Manufacturer() {
+	}
+
+	public Manufacturer(String name) {
+		this.name = name;
+	}
+
+	
+	/**
+	 * GETTERS AND SETTERS
+	 */
+	
 	public Integer getId() {
 		return id;
 	}
@@ -44,9 +61,11 @@ public class Manufacturer {
 		return models;
 	}
 
+	*/
+	
 	public void setModels(Set<Model> models) {
 		this.models = models;
-	}*/
+	}
 	
 	
 }
