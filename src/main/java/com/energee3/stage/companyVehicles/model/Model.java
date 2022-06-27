@@ -57,8 +57,8 @@ public class Model {
 		this.yearProd = yearProd;
 	}
 
-	public Manufacturer getManufacturer() {
-		return manufacturerId;
+	public Integer getManufacturer() {
+		return manufacturerId.getId();
 	}
 
 	public void setManufacturer(Manufacturer manufacturerId) {

@@ -46,16 +46,16 @@ public class Bookings {
 		this.id = id;
 	}
 
-	public Employees getEmployeeId() {
-		return employeeId;
+	public Integer getEmployeeId() {
+		return employeeId.getId();
 	}
 
 	public void setEmployeeId(Employees employeeId) {
 		this.employeeId = employeeId;
 	}
 
-	public Vehicles getVehicleId() {
-		return vehicleId;
+	public String getVehicleId() {
+		return vehicleId.getId();
 	}
 
 	public void setVehicleId(Vehicles vehicleId) {
@@ -79,7 +79,6 @@ public class Bookings {
 	}
 	
 	/*
-
 	public Set<Utilization> getUtilizations() {
 		return utilizations;
 	}
@@ -88,6 +87,5 @@ public class Bookings {
 		this.utilizations = utilizations;
 	}
 	
-	*/
-	
+	 */	
 }

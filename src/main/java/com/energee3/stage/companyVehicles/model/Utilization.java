@@ -35,7 +35,7 @@ public class Utilization {
 	@Column(name="km", precision = 10, scale = 2, nullable = false)
 	private BigDecimal km;
 	
-	@Column(name="text")
+	@Column(name="note")
 	private String note;
 
 	public Integer getId() {
@@ -46,8 +46,8 @@ public class Utilization {
 		this.id = id;
 	}
 
-	public Bookings getBookingId() {
-		return bookingId;
+	public Integer getBookingId() {
+		return bookingId.getId();
 	}
 
 	public void setBookingId(Bookings bookingId) {
