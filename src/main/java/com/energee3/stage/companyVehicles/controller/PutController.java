@@ -1,14 +1,14 @@
 package com.energee3.stage.companyVehicles.controller;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.energee3.stage.companyVehicles.model.Employees;
+import com.energee3.stage.companyVehicles.model.Utilization;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
 import com.energee3.stage.companyVehicles.repository.CustomCrudRepository;
 import com.energee3.stage.companyVehicles.repository.EmployeesRepository;
@@ -36,11 +36,24 @@ public class PutController {
 	@Autowired
 	private CustomCrudRepository customRepository;
 	
-	@PutMapping("/employees/{id}")
-	public Employees updateEmployeePhone(@RequestBody Employees newEmployee, @PathVariable Integer id) {
+	@PutMapping("/employees/updatePhone/{id}")
+	public Employees updateEmployeePhone(@RequestBody Employees newEmployeeData, @PathVariable Integer id) {
 		Employees employee = employees.findById(id).get();
-		employee.setPhoneNumber(newEmployee.getPhoneNumber());
+		employee.setPhoneNumber(newEmployeeData.getPhoneNumber());
+		return employees.save(employee);
+	}
+
+	@PutMapping("/employees/updateEmail/{id}")
+	public Employees updateEmployeeEmail(@RequestBody Employees newEmployeeData, @PathVariable Integer id) {
+		Employees employee = employees.findById(id).get();
+		employee.setEmail(newEmployeeData.getEmail());
 		return employees.save(employee);
 	}
 	
+	@PutMapping("/utilization/updateNote/{id}")
+	public Utilization updateNote(@RequestBody Utilization note, @PathVariable Integer id) {
+		Utilization util = utilization.findById(id).get();
+		util.setNote(note.getNote());
+		return utilization.save(util);
+	}
 }
