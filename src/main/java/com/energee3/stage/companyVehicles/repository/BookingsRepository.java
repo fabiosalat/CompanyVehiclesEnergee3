@@ -21,6 +21,6 @@ public interface BookingsRepository extends CrudRepository<Bookings, Integer> {
 	
 	public List<Bookings> findAllBookingsByVehicleId(Vehicles vehicleId);
 	
-	public List<Bookings> findAllBookingsByStartDate(Timestamp startDate, Timestamp endDate);
+	public List<Bookings> findAllBookingsByStartDateBetween(Timestamp startDate, Timestamp endDate);
 
 }

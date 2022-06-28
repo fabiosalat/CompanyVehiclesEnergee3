@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="vehicles")
 public class Vehicles {
-	private enum Fuel{
+	public enum Fuel{
 		Diesel, Benzina, GPL, Metano, Hybrid, Electric
 	}
 	
