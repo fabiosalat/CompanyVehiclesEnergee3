@@ -28,7 +28,7 @@ public class Bookings {
 	@JoinColumn(name= "vehicle_id", referencedColumnName = "license_plate", columnDefinition = "VARCHAR(7)", nullable = false)
 	private Vehicles vehicleId;
 	
-	@Column(name= "start_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT TIMESTAMP", nullable = false)
+	@Column(name= "start_date", nullable = false)
 	private Timestamp startDate;
 	
 	@Column(name= "end_date", nullable = false)

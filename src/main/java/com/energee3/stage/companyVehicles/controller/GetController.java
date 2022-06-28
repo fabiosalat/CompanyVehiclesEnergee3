@@ -2,12 +2,12 @@ package com.energee3.stage.companyVehicles.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,11 +49,14 @@ public class GetController {
 	private CustomCrudRepository customRepository;
 	
 
-//	@GetMapping("/available/{start_d}/{end_d}")
-//	@Transactional
-//	public List<Vehicles> getAvailableVehicles(@PathVariable("start_d") Timestamp startDate, @PathVariable("end_d") Timestamp endDate){
-//		return vehicles.getAvailableVehicles(startDate, endDate);
-//	}
+	@GetMapping("/available/{start_d}&{end_d}")
+	@Transactional
+	public List<Vehicles> getAvailableVehicles(@PathVariable("start_d") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startD, 
+			@PathVariable("end_d") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endD){
+		Timestamp startDate = Timestamp.valueOf(startD);
+		Timestamp endDate = Timestamp.valueOf(endD);
+		return vehicles.getAvailableVehicles(startDate, endDate);
+	}
 	
 	@GetMapping("/history/{license_plate}")
 	@Transactional
@@ -94,10 +97,14 @@ public class GetController {
 	}
 		
 	
-//	@GetMapping("/bookingsByPeriod/{start_d}/{end_d}")
-//	public List<Bookings> getBookingsByPeriod(@PathVariable("start_d") Timestamp startDate, @PathVariable("end_d") Timestamp endDate) {
-//		return bookings.findAllBookingsByStartDateBetween(startDate, endDate);
-//	}
+	@GetMapping("/bookingsByPeriod/{start_d}&{end_d}")
+	@Transactional
+	public List<Bookings> getBookingsByPeriod(@PathVariable("start_d") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startD, 
+			@PathVariable("end_d") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endD) {
+		Timestamp startDate = Timestamp.valueOf(startD);
+		Timestamp endDate = Timestamp.valueOf(endD);
+		return bookings.getBookingsByPeriod(startDate, endDate);
+	}
 	
 	@GetMapping("/employees")
 	public Iterable<Employees> getAllEmployees(){
