@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name="model")
 public class Model {
@@ -27,7 +29,7 @@ public class Model {
 	private Integer yearProd;
 
 	@ManyToOne
-	@JoinColumn(name = "manufacturer_id", referencedColumnName = "id",  nullable = false)
+	@JoinColumn(name = "manufacturer_id", referencedColumnName = "id", nullable = false)
 	private Manufacturer manufacturerId;
 	
 	@OneToMany(mappedBy = "modelId", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
@@ -75,11 +77,11 @@ public class Model {
 		this.yearProd = yearProd;
 	}
 
-	public Integer getManufacturer() {
+	public Integer getManufacturerId() {
 		return manufacturerId.getId();
 	}
 
-	public void setManufacturer(Manufacturer manufacturerId) {
+	public void setManufacturerId(Manufacturer manufacturerId) {
 		this.manufacturerId = manufacturerId;
 	}
 

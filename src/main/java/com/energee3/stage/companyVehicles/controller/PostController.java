@@ -37,6 +37,7 @@ public class PostController {
 	private UtilizationRepository utilization;
 	@Autowired
 	private VehiclesRepository vehicles;
+	@Autowired
 	private CustomCrudRepository customRepository;
 	
 	
@@ -52,8 +53,7 @@ public class PostController {
 		utilization.insertKmNote(util.getBookingId(), util.getStartDate(), util.getEndDate(), util.getKm(), util.getNote());
 	}
 	
-	
-	@PostMapping(value = "/insertKmNote", consumes = "application/json", produces = "application/json")
+	@PostMapping(value = "/insertKmNote")
 	public void insertKmNote(@RequestBody Utilization newUtilization) {
 		utilization.save(newUtilization);
 	}
