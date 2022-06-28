@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,6 +58,12 @@ public class GetController {
 		Timestamp endDate = Timestamp.valueOf(endD);
 		return vehicles.getAvailableVehicles(startDate, endDate);
 	}
+
+	@GetMapping("/available")
+	@Transactional
+	public List<Vehicles> getAvailableVehicles(@RequestBody Bookings json){
+		return vehicles.getAvailableVehicles(json.getStartDate(), json.getEndDate());
+	}
 	
 	@GetMapping("/history/{license_plate}")
 	@Transactional
@@ -95,7 +102,6 @@ public class GetController {
 		myVehicle.setId(vehicleId);
 		return bookings.findAllBookingsByVehicleId(myVehicle);
 	}
-		
 	
 	@GetMapping("/bookingsByPeriod/{start_d}&{end_d}")
 	@Transactional
@@ -104,6 +110,12 @@ public class GetController {
 		Timestamp startDate = Timestamp.valueOf(startD);
 		Timestamp endDate = Timestamp.valueOf(endD);
 		return bookings.getBookingsByPeriod(startDate, endDate);
+	}
+
+	@GetMapping("/bookingsByPeriod")
+	@Transactional
+	public List<Bookings> getBookingsByPeriod(@RequestBody Bookings bookingsObj){
+		return bookings.getBookingsByPeriod(bookingsObj.getStartDate(), bookingsObj.getEndDate());
 	}
 	
 	@GetMapping("/employees")
@@ -120,7 +132,6 @@ public class GetController {
 	public List<Employees> getEmployeesByName(@PathVariable("first_name") String firstName, @PathVariable("last_name") String lastName) {
 		return employees.findAllEmployeesByFirstNameAndLastName(firstName, lastName);
 	}
-
 	
 	@GetMapping("/manufacturer")
 	public Iterable<Manufacturer> getAllManufacturers(){
@@ -141,7 +152,6 @@ public class GetController {
 		manufacturerId.setId(id);
 		return model.findModelsByManufacturerId(manufacturerId);
 	}
-	
 	
 	@GetMapping("/modelByYear/{year}")
 	public List<Model> getModelByYear(@PathVariable("year") Integer yearProd){
