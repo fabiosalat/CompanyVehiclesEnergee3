@@ -22,7 +22,5 @@ public interface BookingsRepository extends CrudRepository<Bookings, Integer> {
 	public List<Bookings> findAllBookingsByEmployeeId(Employees employeeId);
 	
 	public List<Bookings> findAllBookingsByVehicleId(Vehicles vehicleId);
-	
-//	public List<Bookings> findAllBookingsByStartDateAndEndDateBetween(Timestamp startDate, Timestamp endDate);
 
 }

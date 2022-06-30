@@ -81,6 +81,11 @@ public class GetController {
 		return utilization.findById(utilizationId).get();
 	}
 	
+	@GetMapping("/utilizationsByBookingId/{booking_id}")
+	public List<Utilization> getUtilizationsByBookingId(@PathVariable("booking_id") Bookings booking_id){
+		return utilization.findAllUtilizationByBookingId(booking_id);
+	}
+	
 	@GetMapping("/bookings")
 	public Iterable<Bookings> getAllBookings(){
 		return bookings.findAll();
