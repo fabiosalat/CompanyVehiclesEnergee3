@@ -27,3 +27,4 @@ Progetto stage per Energee3
 
 ### Employees Page
 ![image](https://user-images.githubusercontent.com/94196861/176663329-b98e23d3-86c3-4037-97b6-d862472d520e.png)
+![image](https://user-images.githubusercontent.com/94196861/176693241-8a10927a-b279-4de9-9e76-7c6f659d78c7.png)
