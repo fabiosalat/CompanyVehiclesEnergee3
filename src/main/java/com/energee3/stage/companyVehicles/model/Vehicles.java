@@ -67,8 +67,8 @@ public class Vehicles {
 		this.fuel = fuel;
 	}
 		
-	public Integer getModelId() {
-		return modelId.getId();
+	public Model getModelId() {
+		return modelId;
 	}
 
 	public void setModelId(Model modelId) {
