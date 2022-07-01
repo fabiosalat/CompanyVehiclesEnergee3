@@ -1,5 +1,7 @@
 package com.energee3.stage.companyVehicles.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,7 +46,7 @@ public class PutController {
 	}
 
 	@PutMapping("/employees/updateEmail/{id}")
-	public Employees updateEmployeeEmail(@RequestBody Employees newEmployeeData, @PathVariable Integer id) {
+	public Employees updateEmployeeEmail(@Valid @RequestBody Employees newEmployeeData, @PathVariable Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setEmail(newEmployeeData.getEmail());
 		return employees.save(employee);

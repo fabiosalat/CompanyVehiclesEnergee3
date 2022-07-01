@@ -11,8 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Check;
+
+import net.bytebuddy.utility.nullability.MaybeNull;
 
 @Entity
 @Table(name="employees")
@@ -40,10 +46,12 @@ public class Employees {
 	
 	@Column(name = "email", columnDefinition = "VARCHAR(100)", nullable = false, unique = true)
 	@Check(constraints = "email LIKE '%@%.%'")
+	@Pattern(regexp = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+\\.[a-zA-z]{2,3}", message = "Email non valida")
 	private String email;
 	
 	@Column(name = "tax_code", columnDefinition = "VARCHAR(16)", nullable = false, unique = true)
 	@Check(constraints = "LENGTH(tax_code) = 16")
+//	@Pattern(regexp = "[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]", message = "Codice fiscale non valido")
 	private String taxCode;
 	
 	@OneToMany(mappedBy = "employeeId")

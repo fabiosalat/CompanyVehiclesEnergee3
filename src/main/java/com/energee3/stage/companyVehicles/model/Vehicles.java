@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="vehicles")
@@ -21,6 +22,7 @@ public class Vehicles {
 	
 	@Id
 	@Column(name = "license_plate", columnDefinition = "VARCHAR(7)")
+	@Pattern(regexp = "[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}")
 	private String id;
 	
 	@Enumerated(EnumType.STRING)

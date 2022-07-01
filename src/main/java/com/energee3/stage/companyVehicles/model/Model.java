@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name="model")
@@ -24,6 +26,8 @@ public class Model {
 	private String name;
 	
 	@Column(name = "year_prod", nullable = false)
+	@Min(value = 1990)
+	@Max(value = 2022) // Calendar.getInstance().get(Calendar.YEAR) non funziona
 	private Integer yearProd;
 
 	@ManyToOne

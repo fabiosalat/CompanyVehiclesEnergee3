@@ -1,5 +1,7 @@
 package com.energee3.stage.companyVehicles.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +45,7 @@ public class PostController {
 	
 	@PostMapping("/newBooking")
 	@Transactional
-	public int newBooking(@RequestBody Bookings newBooking) {
+	public int newBooking(@Valid @RequestBody Bookings newBooking) {
 		return bookings.insertNewBooking(newBooking.getEmployeeId(), newBooking.getVehicleId(), newBooking.getStartDate(), newBooking.getEndDate());
 	}
 	
@@ -65,7 +67,7 @@ public class PostController {
 	}
 	
 	@PostMapping("/newVehicle")
-	public Vehicles insertNewVehicle(@RequestBody Vehicles newVehicles) {
+	public Vehicles insertNewVehicle(@Valid @RequestBody Vehicles newVehicles) {
 		return vehicles.save(newVehicles);
 		
 	}
@@ -77,7 +79,7 @@ public class PostController {
 	}
 	
 	@PostMapping("/newModel")
-	public Model insertNewModel(@RequestBody Model newModel) {
+	public Model insertNewModel(@Valid @RequestBody Model newModel) {
 		return model.save(newModel);
 		
 	}

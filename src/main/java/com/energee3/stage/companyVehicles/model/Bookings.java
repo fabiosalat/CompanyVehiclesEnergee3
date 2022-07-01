@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "bookings")
@@ -26,6 +27,7 @@ public class Bookings {
 	
 	@ManyToOne
 	@JoinColumn(name= "vehicle_id", referencedColumnName = "license_plate", columnDefinition = "VARCHAR(7)", nullable = false)
+	@Pattern(regexp = "[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}")
 	private Vehicles vehicleId;
 	
 	@Column(name= "start_date", nullable = false)
