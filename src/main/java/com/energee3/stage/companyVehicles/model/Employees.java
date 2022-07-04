@@ -51,7 +51,7 @@ public class Employees {
 	
 	@Column(name = "tax_code", columnDefinition = "VARCHAR(16)", nullable = false, unique = true)
 	@Check(constraints = "LENGTH(tax_code) = 16")
-//	@Pattern(regexp = "[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]", message = "Codice fiscale non valido")
+//	@Pattern(regexp = "[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]", message = "Codice fiscale non valido") da errore anche se non richiamato
 	private String taxCode;
 	
 	@OneToMany(mappedBy = "employeeId")
