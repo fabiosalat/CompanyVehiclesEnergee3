@@ -1,6 +1,10 @@
 # CompanyVehiclesEnergee3
 Progetto stage per Energee3
 
+##Database
+![diagrammaER](https://user-images.githubusercontent.com/94196861/177165395-59fcedc3-c928-4df8-a53b-116c5d2e42ec.png)
+
+
 ### Mockup -> https://app.moqups.com/7TJEk429ouSmA0N43CuDqp1Ua4pBhh4J/view
 
 ### Login Page
