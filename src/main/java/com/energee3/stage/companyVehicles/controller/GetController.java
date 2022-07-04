@@ -19,7 +19,6 @@ import com.energee3.stage.companyVehicles.model.Model;
 import com.energee3.stage.companyVehicles.model.Utilization;
 import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
-import com.energee3.stage.companyVehicles.repository.CustomCrudRepository;
 import com.energee3.stage.companyVehicles.repository.EmployeesRepository;
 import com.energee3.stage.companyVehicles.repository.ManufacturerRepository;
 import com.energee3.stage.companyVehicles.repository.ModelRepository;
@@ -42,8 +41,6 @@ public class GetController {
 	private UtilizationRepository utilization;
 	@Autowired
 	private VehiclesRepository vehicles;
-	@Autowired
-	private CustomCrudRepository customRepository;
 	
 
 	@GetMapping("/available/{start_d}&{end_d}")
@@ -63,7 +60,6 @@ public class GetController {
 	public List<Vehicles> getAvailableVehicles(@RequestBody Bookings json){
 		return vehicles.getAvailableVehicles(json.getStartDate(), json.getEndDate());
 	}
-	
 	*/
 	
 	@GetMapping("/utilizationsByBookingId/{booking_id}")
@@ -134,24 +130,12 @@ public class GetController {
 					searchVehicle.getModelId(), searchVehicle.getActive())));
 	}
 	
-	@GetMapping("/getBookingsByFilter")
-	public List<Bookings> getBookingsByFilter(@RequestBody Bookings searchBooking){
-		if (searchBooking.getStartDate() != null && searchBooking.getEndDate() != null) {
-			List<Bookings> arrayDate = bookings.getBookingsByPeriod(searchBooking.getStartDate(), searchBooking.getEndDate());
-			
-			return arrayDate.stream().filter(x -> x.getId().equals(searchBooking.getId()) 
-					&& x.getEmployeeId().equals(searchBooking.getEmployeeId()) && x.getVehicleId().equals(searchBooking.getVehicleId())).toList();  
-			
-		} else {
-			Bookings b = new Bookings();
-			if (searchBooking.getEmployeeId() != null) { b.setEmployeeId(employees.findById(searchBooking.getEmployeeId()).get()); }
-			b.setId(searchBooking.getId());
-			b.setVehicleId(vehicles.findById(searchBooking.getVehicleId()).get());
-			return bookings.findAll(Example.of(b));
-		}
-		
-		
+	@GetMapping("/getEmployeeByFilter")
+	public List<Employees> getEmployeesByFilter(@RequestBody Employees searchEmployee){
+		Employees e = new Employees();
+		e.setId(searchEmployee.getId());
+		e.setFirstName(searchEmployee.getFirstName());
+		e.setLastName(searchEmployee.getLastName());
+		return employees.findAll(Example.of(e));
 	}
-	
-	
 }

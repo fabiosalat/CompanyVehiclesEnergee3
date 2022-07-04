@@ -16,7 +16,6 @@ import com.energee3.stage.companyVehicles.model.Model;
 import com.energee3.stage.companyVehicles.model.Utilization;
 import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
-import com.energee3.stage.companyVehicles.repository.CustomCrudRepository;
 import com.energee3.stage.companyVehicles.repository.EmployeesRepository;
 import com.energee3.stage.companyVehicles.repository.ManufacturerRepository;
 import com.energee3.stage.companyVehicles.repository.ModelRepository;
@@ -39,8 +38,6 @@ public class PostController {
 	private UtilizationRepository utilization;
 	@Autowired
 	private VehiclesRepository vehicles;
-	@Autowired
-	private CustomCrudRepository customRepository;
 	
 	
 	@PostMapping("/newBooking")

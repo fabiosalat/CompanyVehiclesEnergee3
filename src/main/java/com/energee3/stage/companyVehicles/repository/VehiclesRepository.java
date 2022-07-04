@@ -13,10 +13,4 @@ import com.energee3.stage.companyVehicles.model.Vehicles.Fuel;
 public interface VehiclesRepository extends CrudRepository<Vehicles, String>, JpaRepository<Vehicles, String> {
 	@Procedure("available")
 	public List<Vehicles> getAvailableVehicles(Timestamp start_d, Timestamp end_d);	
-
-	public List<Vehicles> findVehiclesByFuel(Fuel fuel);
-	
-	public List<Vehicles> findVehiclesByModelId(Model modelId);
-	
-	public List<Vehicles> findVehiclesByModelIdIn(List<Model> ModelIds);
 }

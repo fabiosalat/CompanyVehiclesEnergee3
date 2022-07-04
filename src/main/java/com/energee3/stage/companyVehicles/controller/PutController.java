@@ -13,7 +13,6 @@ import com.energee3.stage.companyVehicles.model.Employees;
 import com.energee3.stage.companyVehicles.model.Utilization;
 import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
-import com.energee3.stage.companyVehicles.repository.CustomCrudRepository;
 import com.energee3.stage.companyVehicles.repository.EmployeesRepository;
 import com.energee3.stage.companyVehicles.repository.ManufacturerRepository;
 import com.energee3.stage.companyVehicles.repository.ModelRepository;
@@ -36,8 +35,6 @@ public class PutController {
 	private UtilizationRepository utilization;
 	@Autowired
 	private VehiclesRepository vehicles;
-	@Autowired
-	private CustomCrudRepository customRepository;
 	
 	@PutMapping("/employees/updatePhone/{id}")
 	public Employees updateEmployeePhone(@RequestBody Employees newEmployeeData, @PathVariable Integer id) {
