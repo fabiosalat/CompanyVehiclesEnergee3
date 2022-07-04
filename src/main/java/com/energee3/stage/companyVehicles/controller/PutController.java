@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.energee3.stage.companyVehicles.model.Employees;
 import com.energee3.stage.companyVehicles.model.Utilization;
+import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
 import com.energee3.stage.companyVehicles.repository.CustomCrudRepository;
 import com.energee3.stage.companyVehicles.repository.EmployeesRepository;
@@ -52,10 +53,24 @@ public class PutController {
 		return employees.save(employee);
 	}
 	
+	@PutMapping("/employees/updateActive/{id}")
+	public Employees updateActiveEmployee(@RequestBody Employees newEmployeeData, @PathVariable Integer id) {
+		Employees employee = employees.findById(id).get();
+		employee.setActive(newEmployeeData.getActive());
+		return employees.save(employee);
+	}
+	
 	@PutMapping("/utilization/updateNote/{id}")
 	public Utilization updateNote(@RequestBody Utilization note, @PathVariable Integer id) {
 		Utilization util = utilization.findById(id).get();
 		util.setNote(note.getNote());
 		return utilization.save(util);
 	}
+	
+	public Vehicles updateActiveVehicle(@RequestBody Vehicles vehiclesData, @PathVariable String id) {
+		Vehicles vehicle = vehicles.findById(id).get();
+		vehicle.setActive(vehiclesData.getActive());
+		return vehicles.save(vehicle);
+	}
+
 }

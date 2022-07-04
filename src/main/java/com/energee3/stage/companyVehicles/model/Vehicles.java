@@ -33,6 +33,9 @@ public class Vehicles {
 	@JoinColumn(name = "model_id", referencedColumnName = "id",  nullable = false)
 	private Model modelId;
 	
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	private Boolean active;
+	
 	@OneToMany(mappedBy = "vehicleId")
 	private Set<Bookings> bookings;
 	
@@ -49,6 +52,14 @@ public class Vehicles {
 		this.modelId = modelId;
 	}
 	
+	public Vehicles(@Pattern(regexp = "[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}") String id, Fuel fuel, Model modelId,
+			Boolean active) {
+		this.id = id;
+		this.fuel = fuel;
+		this.modelId = modelId;
+		this.active = active;
+	}
+
 	/**
 	 * GETTERS AND SETTERS
 	 */
@@ -77,6 +88,14 @@ public class Vehicles {
 		this.modelId = modelId;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	
 	/*
 	public Set<Bookings> getBookings() {
 		return bookings;
@@ -86,6 +105,5 @@ public class Vehicles {
 	public void setBookings(Set<Bookings> bookings) {
 		this.bookings = bookings;
 	}
-	
-	
+
 }

@@ -72,6 +72,10 @@ public class Bookings {
 	public void setEmployeeId(Employees employeeId) {
 		this.employeeId = employeeId;
 	}
+	
+	public void setEmployee(Integer id) {
+		this.employeeId.setId(id);
+	}
 
 	public String getVehicleId() {
 		return vehicleId.getId();

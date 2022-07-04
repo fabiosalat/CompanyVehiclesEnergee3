@@ -3,19 +3,8 @@ package com.energee3.stage.companyVehicles.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-
-import javax.naming.directory.SearchControls;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.energee3.stage.companyVehicles.model.Bookings;
 import com.energee3.stage.companyVehicles.model.Employees;
 import com.energee3.stage.companyVehicles.model.Manufacturer;
@@ -142,29 +130,28 @@ public class GetController {
 	
 	@GetMapping("/getVehiclesByFilter")
 	public List<Vehicles> getVehiclesByFilter(@RequestBody Vehicles searchVehicle){
-			return vehicles.findAll(Example.of(new Vehicles(searchVehicle.getId(), searchVehicle.getFuel(), searchVehicle.getModelId())));
-		
+			return vehicles.findAll(Example.of(new Vehicles(searchVehicle.getId(), searchVehicle.getFuel(), 
+					searchVehicle.getModelId(), searchVehicle.getActive())));
 	}
 	
 	@GetMapping("/getBookingsByFilter")
 	public List<Bookings> getBookingsByFilter(@RequestBody Bookings searchBooking){
-		Bookings b = new Bookings();
-		b.setEmployeeId(employees.findById(searchBooking.getEmployeeId()).get());
-		b.setId(searchBooking.getId());
-		b.setVehicleId(vehicles.findById(searchBooking.getVehicleId()).get());
-		
-//		b.setStartDate(searchBooking.getStartDate());
-//		b.setEndDate(searchBooking.getEndDate());
-		
 		if (searchBooking.getStartDate() != null && searchBooking.getEndDate() != null) {
-			bookings.getBookingsByPeriod(searchBooking.getStartDate(), searchBooking.getEndDate());
+			List<Bookings> arrayDate = bookings.getBookingsByPeriod(searchBooking.getStartDate(), searchBooking.getEndDate());
+			
+			return arrayDate.stream().filter(x -> x.getId().equals(searchBooking.getId()) 
+					&& x.getEmployeeId().equals(searchBooking.getEmployeeId()) && x.getVehicleId().equals(searchBooking.getVehicleId())).toList();  
+			
+		} else {
+			Bookings b = new Bookings();
+			if (searchBooking.getEmployeeId() != null) { b.setEmployeeId(employees.findById(searchBooking.getEmployeeId()).get()); }
+			b.setId(searchBooking.getId());
+			b.setVehicleId(vehicles.findById(searchBooking.getVehicleId()).get());
+			return bookings.findAll(Example.of(b));
 		}
 		
 		
-		return bookings.findAll(Example.of(b));
-		
 	}
-	
 	
 	
 }

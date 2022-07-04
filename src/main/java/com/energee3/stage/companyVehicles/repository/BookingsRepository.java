@@ -17,7 +17,7 @@ public interface BookingsRepository extends CrudRepository<Bookings, Integer>, J
 	public int insertNewBooking(@Param("employee") Integer employee, 
 			@Param("vehicle") String targa, @Param("start_d") Timestamp start, @Param("end_d") Timestamp end);
 	
-	@Procedure("findBookingsByPeriod")
+	@Procedure("bookingsByPeriod")
 	public List<Bookings> getBookingsByPeriod(Timestamp start_d, Timestamp end_d);
 
 	public List<Bookings> findAllBookingsByEmployeeId(Employees employeeId);

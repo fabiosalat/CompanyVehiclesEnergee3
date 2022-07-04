@@ -1,7 +1,6 @@
 package com.energee3.stage.companyVehicles.model;
 
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,14 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
-
 import org.hibernate.annotations.Check;
-
-import net.bytebuddy.utility.nullability.MaybeNull;
 
 @Entity
 @Table(name="employees")
@@ -53,6 +46,9 @@ public class Employees {
 	@Check(constraints = "LENGTH(tax_code) = 16")
 //	@Pattern(regexp = "[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]", message = "Codice fiscale non valido") da errore anche se non richiamato
 	private String taxCode;
+	
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	private Boolean active;
 	
 	@OneToMany(mappedBy = "employeeId")
 	private Set<Bookings> bookings;
@@ -133,6 +129,14 @@ public class Employees {
 
 	public void setTaxCode(String taxCode) {
 		this.taxCode = taxCode;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 	
 	/*
