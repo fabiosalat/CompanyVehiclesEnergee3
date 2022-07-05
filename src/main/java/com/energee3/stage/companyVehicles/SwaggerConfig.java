@@ -2,14 +2,6 @@ package com.energee3.stage.companyVehicles;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.energee3.stage.companyVehicles.model.Bookings;
-import com.energee3.stage.companyVehicles.model.Employees;
-import com.energee3.stage.companyVehicles.model.Manufacturer;
-import com.energee3.stage.companyVehicles.model.Model;
-import com.energee3.stage.companyVehicles.model.Utilization;
-import com.energee3.stage.companyVehicles.model.Vehicles;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
