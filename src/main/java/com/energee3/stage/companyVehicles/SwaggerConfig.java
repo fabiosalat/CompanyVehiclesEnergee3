@@ -25,8 +25,7 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.OAS_30)
 					.select()
 					.apis(RequestHandlerSelectors.basePackage("com.energee3.stage.companyVehicles.controller"))
-					.paths(PathSelectors.any()).build().apiInfo(getInfo())
-					.ignoredParameterTypes(Model.class, Bookings.class, Employees.class, Manufacturer.class, Utilization.class, Vehicles.class);
+					.paths(PathSelectors.any()).build().apiInfo(getInfo());
 	}
 	
 	private ApiInfo getInfo() {

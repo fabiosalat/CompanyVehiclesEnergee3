@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
+import io.swagger.annotations.ApiModel;
+
 @Entity
 @Table(name="vehicles")
 public class Vehicles {

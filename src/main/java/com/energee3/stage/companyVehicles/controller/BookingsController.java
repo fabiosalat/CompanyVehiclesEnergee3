@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.energee3.stage.companyVehicles.model.Bookings;
 import com.energee3.stage.companyVehicles.model.Employees;
 import com.energee3.stage.companyVehicles.model.Utilization;
@@ -60,21 +61,21 @@ public class BookingsController {
 	@ApiOperation(value = "Return all utilizations by booking id")
 	@GetMapping("/utilizationsByBookingId/{booking_id}")
 	public List<Utilization> getUtilizationsByBookingId(
-			@PathVariable("booking_id") @ApiParam(value = "Booking Id", required = true, example = "1") Bookings booking_id){
+			@PathVariable("booking_id") @ApiParam(value = "Booking Id", required = true) Bookings booking_id){
 		return utilization.findAllUtilizationByBookingId(booking_id);
 	}
 	
 	@ApiOperation(value = "Find a booking by id")
 	@GetMapping("/findById/{booking_id}")
 	public Bookings getBookingsById(
-			@PathVariable("booking_id") @ApiParam(value = "Booking Id", required = true, example = "1") Integer bookingId) {
+			@PathVariable("booking_id") @ApiParam(value = "Booking Id", required = true) Integer bookingId) {
 		return bookings.findById(bookingId).get();
 	}
 
 	@ApiOperation(value = "Find all bookings by its employee id")
 	@GetMapping("/findByEmployeeId/{employee_id}")
 	public List<Bookings> getBookingsByEmployeeId(
-			@PathVariable("employee_id") @ApiParam(value = "Employee Id", required = true, example = "1") Employees employeeId) {
+			@PathVariable("employee_id") @ApiParam(value = "Employee Id", required = true) Employees employeeId) {
 		return bookings.findAllBookingsByEmployeeId(employeeId);
 	}
 	

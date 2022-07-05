@@ -37,7 +37,7 @@ public class EmployeesController {
 	@ApiOperation(value = "Find an employee by id")
 	@GetMapping("/findById/{employee_id}")
 	public Employees getEmployeesById(@PathVariable("employee_id") 
-			@ApiParam(value = "Employee Id", required = true, example = "1") Integer employeeId){
+			@ApiParam(value = "Employee Id", required = true) Integer employeeId){
 		return employees.findById(employeeId).get();
 	}
 	
@@ -60,7 +60,7 @@ public class EmployeesController {
 	@ApiOperation(value = "Update an employee phone number")
 	@PutMapping("/updatePhone/{id}")
 	public Employees updateEmployeePhone(@RequestBody Employees newEmployeeData, 
-			@PathVariable @ApiParam(value = "Employee Id", required = true, example = "1") Integer id) {
+			@PathVariable @ApiParam(value = "Employee Id", required = true) Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setPhoneNumber(newEmployeeData.getPhoneNumber());
 		return employees.save(employee);
@@ -69,7 +69,7 @@ public class EmployeesController {
 	@ApiOperation(value = "Update an employee email")
 	@PutMapping("/updateEmail/{id}")
 	public Employees updateEmployeeEmail(@Valid @RequestBody Employees newEmployeeData, 
-			@PathVariable @ApiParam(value = "Employee Id", required = true, example = "1") Integer id) {
+			@PathVariable @ApiParam(value = "Employee Id", required = true) Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setEmail(newEmployeeData.getEmail());
 		return employees.save(employee);
@@ -78,7 +78,7 @@ public class EmployeesController {
 	@ApiOperation(value = "Update an employee status")
 	@PutMapping("/updateActive/{id}")
 	public Employees updateActiveEmployee(@RequestBody Employees newEmployeeData, 
-			@PathVariable @ApiParam(value = "Employee Id", required = true, example = "1") Integer id) {
+			@PathVariable @ApiParam(value = "Employee Id", required = true) Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setActive(newEmployeeData.getActive());
 		return employees.save(employee);
