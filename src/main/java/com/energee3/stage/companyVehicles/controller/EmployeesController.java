@@ -13,25 +13,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.energee3.stage.companyVehicles.model.Employees;
 import com.energee3.stage.companyVehicles.repository.EmployeesRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/employees")
+@Api(produces = "application/json", tags = {"Employees Controller"})
+@Tag(name = "Employees Controller", description = "Operations on Employees")
 public class EmployeesController {
 
 	@Autowired
 	private EmployeesRepository employees;
 
 	
+	@ApiOperation(value = "Return all employees in database")
 	@GetMapping("/findAll")
 	public Iterable<Employees> getAllEmployees(){
 		return employees.findAll();
 	}
-	
+
+	@ApiOperation(value = "Find an employee by id")
 	@GetMapping("/findById/{employee_id}")
-	public Employees getEmployeesById(@PathVariable("employee_id") Integer employeeId){
+	public Employees getEmployeesById(@PathVariable("employee_id") 
+			@ApiParam(value = "Employee Id", required = true, example = "1") Integer employeeId){
 		return employees.findById(employeeId).get();
 	}
 	
+	@ApiOperation(value = "Find one or more employees by using one or more parameters")
 	@GetMapping("/findByFilter")
 	public List<Employees> getEmployeesByFilter(@RequestBody Employees searchEmployee){
 		Employees e = new Employees();
@@ -41,27 +51,34 @@ public class EmployeesController {
 		return employees.findAll(Example.of(e));
 	}
 
+	@ApiOperation(value = "Insert a new employee")
 	@PostMapping("/newEmployee")
 	public Employees insertNewEmployee(@RequestBody Employees newEmployee) {
 		return employees.save(newEmployee);
 	}
 	
+	@ApiOperation(value = "Update an employee phone number")
 	@PutMapping("/updatePhone/{id}")
-	public Employees updateEmployeePhone(@RequestBody Employees newEmployeeData, @PathVariable Integer id) {
+	public Employees updateEmployeePhone(@RequestBody Employees newEmployeeData, 
+			@PathVariable @ApiParam(value = "Employee Id", required = true, example = "1") Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setPhoneNumber(newEmployeeData.getPhoneNumber());
 		return employees.save(employee);
 	}
 
+	@ApiOperation(value = "Update an employee email")
 	@PutMapping("/updateEmail/{id}")
-	public Employees updateEmployeeEmail(@Valid @RequestBody Employees newEmployeeData, @PathVariable Integer id) {
+	public Employees updateEmployeeEmail(@Valid @RequestBody Employees newEmployeeData, 
+			@PathVariable @ApiParam(value = "Employee Id", required = true, example = "1") Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setEmail(newEmployeeData.getEmail());
 		return employees.save(employee);
 	}
 	
+	@ApiOperation(value = "Update an employee status")
 	@PutMapping("/updateActive/{id}")
-	public Employees updateActiveEmployee(@RequestBody Employees newEmployeeData, @PathVariable Integer id) {
+	public Employees updateActiveEmployee(@RequestBody Employees newEmployeeData, 
+			@PathVariable @ApiParam(value = "Employee Id", required = true, example = "1") Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setActive(newEmployeeData.getActive());
 		return employees.save(employee);
