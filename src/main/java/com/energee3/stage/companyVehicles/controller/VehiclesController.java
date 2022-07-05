@@ -61,18 +61,18 @@ public class VehiclesController {
 	}
 
 	
-	@GetMapping("/vehicleById/{license_plate}")
+	@GetMapping("/findById/{license_plate}")
 	public Vehicles getVehicleByLicensePlate(@PathVariable("license_plate") String licensePlate) {
 		return vehicles.findById(licensePlate).get();
 	}
 	
-	@GetMapping("/byFilter")
+	@GetMapping("/findByFilter")
 	public List<Vehicles> getVehiclesByFilter(@RequestBody Vehicles searchVehicle){
 			return vehicles.findAll(Example.of(new Vehicles(searchVehicle.getId(), searchVehicle.getFuel(), 
 					searchVehicle.getModelId(), searchVehicle.getActive())));
 	}
 	
-	@PutMapping("update")
+	@PutMapping("/updateActive/{id}")
 	public Vehicles updateActiveVehicle(@RequestBody Vehicles vehiclesData, @PathVariable String id) {
 		Vehicles vehicle = vehicles.findById(id).get();
 		vehicle.setActive(vehiclesData.getActive());
@@ -91,7 +91,7 @@ public class VehiclesController {
 		
 	}
 	
-	@PostMapping("/new")
+	@PostMapping("/newVehicle")
 	public Vehicles insertNewVehicle(@Valid @RequestBody Vehicles newVehicles) {
 		return vehicles.save(newVehicles);
 	}
