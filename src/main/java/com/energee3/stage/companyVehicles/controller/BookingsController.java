@@ -96,7 +96,8 @@ public class BookingsController {
 	
 	@ApiOperation(value = "Update note by id")
 	@PutMapping("/updateUtilizationNote/{id}")
-	public Utilization updateNote(@RequestBody Utilization note, @PathVariable Integer id) {
+	public Utilization updateNote(@RequestBody Utilization note, 
+			@PathVariable @ApiParam(value = "Utilization Id", required = true) Integer id) {
 		Utilization util = utilization.findById(id).get();
 		util.setNote(note.getNote());
 		return utilization.save(util);
