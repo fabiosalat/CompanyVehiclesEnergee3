@@ -45,6 +45,13 @@ public class EmployeesController {
 		return employees.findById(employeeId).get();
 	}
 	
+	@ApiOperation(value = "Find an employee by email")
+	@GetMapping("/findByEmail/{email}")
+	public Employees getEmployeesByEmail(@PathVariable("email") 
+			@ApiParam(value = "Email", required = true) String employeeEmail){
+		return employees.findByEmail(employeeEmail).get();
+	}
+	
 	@ApiOperation(value = "Find one or more employees by using one or more parameters")
 	@GetMapping("/findByFilter")
 	public List<Employees> getEmployeesByFilter(@RequestBody Employees searchEmployee){
