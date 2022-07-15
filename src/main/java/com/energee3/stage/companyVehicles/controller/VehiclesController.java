@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,15 +33,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Vehicles Controller", description = "Operations on Vehicles, Model and Manufactuer")
 @RestController
 @RequestMapping("/api/vehicles")
+@Validated
 public class VehiclesController {
 	
 	@Autowired
 	private VehiclesRepository vehicles;
 	@Autowired
 	private ManufacturerRepository manufacturer;
-
 	@Autowired
 	private ModelRepository model;
+	
 	
 	@ApiOperation(value = "Get all manufacturers", notes = "Returns all vehicle manufacturers in the database")
 	@GetMapping("/manufacturer")
@@ -86,7 +88,7 @@ public class VehiclesController {
 	
 	@ApiOperation(value = "Update activity status", notes = "Updates the activity status of a vehicle given its id")
 	@PutMapping("/updateActive/{id}")
-	public Vehicles updateActiveVehicle(@RequestBody Vehicles vehiclesData, @ApiParam(value="license plate", required = true) @PathVariable String id) {
+	public Vehicles updateActiveVehicle(@RequestBody Vehicles vehiclesData, @ApiParam(value="license plate", required = true) @PathVariable("id") String id) {
 		Vehicles vehicle = vehicles.findById(id).get();
 		vehicle.setActive(vehiclesData.getActive());
 		return vehicles.save(vehicle);

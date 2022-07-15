@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/bookings")
 @Api(produces = "application/json", tags = {"Bookings Controller"})
 @Tag(name = "Bookings Controller", description = "Operations on Bookings and Utilization")
+@Validated
 public class BookingsController {
 
 	@Autowired
@@ -97,7 +99,7 @@ public class BookingsController {
 	@ApiOperation(value = "Update note by id")
 	@PutMapping("/updateUtilizationNote/{id}")
 	public Utilization updateNote(@RequestBody Utilization note, 
-			@PathVariable @ApiParam(value = "Utilization Id", required = true) Integer id) {
+			@PathVariable("id") @ApiParam(value = "Utilization Id", required = true) Integer id) {
 		Utilization util = utilization.findById(id).get();
 		util.setNote(note.getNote());
 		return utilization.save(util);

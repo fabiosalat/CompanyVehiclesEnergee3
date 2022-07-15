@@ -4,6 +4,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/employees")
 @Api(produces = "application/json", tags = {"Employees Controller"})
 @Tag(name = "Employees Controller", description = "Operations on Employees")
+@Validated
 public class EmployeesController {
 
 	@Autowired
@@ -62,7 +64,7 @@ public class EmployeesController {
 	@ApiOperation(value = "Update an employee phone number")
 	@PutMapping("/updatePhone/{id}")
 	public Employees updateEmployeePhone(@RequestBody Employees newEmployeeData, 
-			@PathVariable @ApiParam(value = "Employee Id", required = true) Integer id) {
+			@PathVariable("id") @ApiParam(value = "Employee Id", required = true) Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setPhoneNumber(newEmployeeData.getPhoneNumber());
 		return employees.save(employee);
@@ -71,7 +73,7 @@ public class EmployeesController {
 	@ApiOperation(value = "Update an employee email")
 	@PutMapping("/updateEmail/{id}")
 	public Employees updateEmployeeEmail(@Valid @RequestBody Employees newEmployeeData, 
-			@PathVariable @ApiParam(value = "Employee Id", required = true) Integer id) {
+			@PathVariable("id") @ApiParam(value = "Employee Id", required = true) Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setEmail(newEmployeeData.getEmail());
 		return employees.save(employee);
@@ -80,7 +82,7 @@ public class EmployeesController {
 	@ApiOperation(value = "Update an employee status")
 	@PutMapping("/updateActive/{id}")
 	public Employees updateActiveEmployee(@RequestBody Employees newEmployeeData, 
-			@PathVariable @ApiParam(value = "Employee Id", required = true) Integer id) {
+			@PathVariable("id") @ApiParam(value = "Employee Id", required = true) Integer id) {
 		Employees employee = employees.findById(id).get();
 		employee.setActive(newEmployeeData.getActive());
 		return employees.save(employee);
