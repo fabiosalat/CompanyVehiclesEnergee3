@@ -2,8 +2,13 @@ package com.energee3.stage.companyVehicles.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +29,7 @@ import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
 import com.energee3.stage.companyVehicles.repository.UtilizationRepository;
 import com.energee3.stage.companyVehicles.repository.VehiclesRepository;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -54,11 +60,12 @@ public class BookingsController {
 	@ApiOperation(value = "Return all available vehicles to book")
 	@GetMapping("/available/{start_d}&{end_d}")
 	@Transactional
-	public List<Vehicles> getAvailableVehicles(
+	public Iterable<Vehicles> getAvailableVehicles(
 			@PathVariable("start_d") @ApiParam(required = true, value = "Start date of booking") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startD, 
 			@PathVariable("end_d") @ApiParam(required = true, value = "End date of booking") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endD) {
 		Timestamp startDate = Timestamp.valueOf(startD);
 		Timestamp endDate = Timestamp.valueOf(endD);
+		
 		return vehicles.getAvailableVehicles(startDate, endDate);
 	}
 

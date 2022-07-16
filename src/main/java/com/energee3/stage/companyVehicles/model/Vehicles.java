@@ -33,7 +33,7 @@ public class Vehicles {
 	@JoinColumn(name = "model_id", referencedColumnName = "id",  nullable = false)
 	private Model modelId;
 	
-	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	@Column(name = "_active", nullable = false, columnDefinition = "TINYINT(1)")
 	private Boolean active;
 	
 	@OneToMany(mappedBy = "vehicleId")
