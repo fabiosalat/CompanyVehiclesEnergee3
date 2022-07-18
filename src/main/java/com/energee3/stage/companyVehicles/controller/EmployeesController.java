@@ -4,7 +4,6 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,13 +30,6 @@ public class EmployeesController {
 
 	@Autowired
 	private EmployeesRepository employees;
-
-	
-	@GetMapping("/login")
-	public Employees getUser(OAuth2AuthenticationToken token) {
-		return employees.findByEmail(token.getPrincipal().getAttribute("email")).get();
-	}
-	
 	
 	@ApiOperation(value = "Return all employees in database")
 	@GetMapping("/findAll")
