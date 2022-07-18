@@ -34,9 +34,10 @@ public class EmployeesController {
 
 	
 	@GetMapping("/login")
-	public Object getUser(OAuth2AuthenticationToken token) {
-		return token.getPrincipal().getAttributes().get("email");
+	public Employees getUser(OAuth2AuthenticationToken token) {
+		return employees.findByEmail(token.getPrincipal().getAttribute("email")).get();
 	}
+	
 	
 	@ApiOperation(value = "Return all employees in database")
 	@GetMapping("/findAll")
