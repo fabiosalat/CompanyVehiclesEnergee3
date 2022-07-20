@@ -2,13 +2,7 @@ package com.energee3.stage.companyVehicles.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.energee3.stage.companyVehicles.model.Bookings;
 import com.energee3.stage.companyVehicles.model.Employees;
 import com.energee3.stage.companyVehicles.model.Utilization;
@@ -29,7 +22,6 @@ import com.energee3.stage.companyVehicles.model.Vehicles;
 import com.energee3.stage.companyVehicles.repository.BookingsRepository;
 import com.energee3.stage.companyVehicles.repository.UtilizationRepository;
 import com.energee3.stage.companyVehicles.repository.VehiclesRepository;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -93,7 +85,7 @@ public class BookingsController {
 	@ApiOperation(value = "Insert a new booking")
 	@PostMapping("/newBooking")
 	@Transactional
-	public int newBooking(@Valid @RequestBody Bookings newBooking) {
+	public int newBooking(@RequestBody Bookings newBooking) {
 		return bookings.insertNewBooking(newBooking.getEmployeeId(), newBooking.getVehicleId(), newBooking.getStartDate(), newBooking.getEndDate());
 	}
 	

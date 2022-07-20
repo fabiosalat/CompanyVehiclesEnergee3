@@ -36,6 +36,7 @@ public class Vehicles {
 	@Column(name = "_active", nullable = false, columnDefinition = "TINYINT(1)")
 	private Boolean active;
 	
+	@Pattern(regexp = "[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}")
 	@OneToMany(mappedBy = "vehicleId")
 	private Set<Bookings> bookings;
 	

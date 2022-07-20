@@ -36,7 +36,7 @@ CREATE TABLE `bookings` (
   CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
   CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`license_plate`),
   CONSTRAINT `bookings_chk_1` CHECK ((`start_date` < `end_date`))
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (1,1,'WG123GJ','2022-06-09 14:00:00','2022-06-11 14:00:00'),(2,2,'OL456YG','2022-06-01 10:00:00','2022-06-01 16:00:00'),(3,3,'WG159HR','2022-05-26 07:00:00','2022-06-06 16:00:00'),(4,3,'WG159HR','2022-06-25 07:00:00','2022-06-25 08:00:00');
+INSERT INTO `bookings` VALUES (1,1,'WG123GJ','2022-06-09 14:00:00','2022-06-11 14:00:00'),(2,2,'OL456YG','2022-06-01 10:00:00','2022-06-01 16:00:00'),(3,3,'WG159HR','2022-05-26 07:00:00','2022-06-06 16:00:00'),(4,3,'WG159HR','2022-06-25 07:00:00','2022-06-25 08:00:00'),(5,2,'OL456YG','2022-07-18 10:42:00','2022-07-22 10:42:00'),(6,2,'WG123GJ','2022-07-19 11:55:00','2022-07-21 11:55:00'),(7,2,'TH789LK','2022-07-19 15:24:00','2022-07-22 15:24:00'),(8,4,'AB543FG','2022-07-18 09:10:00','2022-07-21 09:10:00');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,9 +68,10 @@ CREATE TABLE `employees` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `tax_code` (`tax_code`),
+  UNIQUE KEY `phone_number_UNIQUE` (`phone_number`),
   CONSTRAINT `employees_chk_1` CHECK ((`email` like _utf8mb4'%@%.%')),
   CONSTRAINT `employees_chk_2` CHECK ((length(`tax_code`) = 16))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +80,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'Mario','Rossi','M','123456789','mario.rossi@gmail.com','erdfrevgbhuilkns',1),(2,'Sara','Verdi','F','654789154','sara.verdi@outlook.it','erfgtyhjloiujnkl',1),(3,'Michele','Neri','non_binary','345345345','michele.neri@gmail.com','erghyjnbgfvghyuj',1);
+INSERT INTO `employees` VALUES (1,'Mario','Rossi','M','1234567890','mario.rossi@energee3.com','erdfrevgbhuilkns',1),(2,'Sara','Verdi','F','9654789112','sara.verdi@energee3.com','erfgtyhjloiujnkl',1),(3,'Michele','Neri','non_binary','3405345345','michele.neri@energee3.com','erghyjnbgfvghyuj',1),(4,'Fabio','Salatino','M','3801987756','fabio.salatino@energee3.com','sltxxx98x09x122b',1),(5,'Luca','Polimeni','M','1234567891','Luca.Polimeni@energee3.com','PLMLCU78X45A366N',1),(6,'Alessandra','Nicoli','F','1234567892','Alessandra.Nicoli@energee3.com','PLMLCU78X45A366H',1),(7,'Mario','Giordano','non_binary','1234567893','mario.giordano@energee3.com','PLMLCU78X45A366E',1);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +178,7 @@ CREATE TABLE `vehicles` (
   `license_plate` varchar(7) NOT NULL,
   `fuel` enum('Diesel','Benzina','GPL','Metano','Hybrid','Electric') NOT NULL,
   `model_id` int NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `_active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`license_plate`),
   KEY `model_id` (`model_id`),
   CONSTRAINT `vehicles_ibfk_1` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`)
@@ -190,7 +191,7 @@ CREATE TABLE `vehicles` (
 
 LOCK TABLES `vehicles` WRITE;
 /*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
-INSERT INTO `vehicles` VALUES ('AB543FG','Diesel',4,1),('OL456YG','Metano',3,1),('TH789LK','Benzina',3,1),('WG159HR','Benzina',1,1),('WG123GJ','Diesel',2,1);
+INSERT INTO `vehicles` VALUES ('AB543FG','Diesel',4,1),('OL456YG','Metano',3,1),('TH789LK','Benzina',3,1),('WG123GJ','Diesel',2,1),('WG159HR','Benzina',1,1);
 /*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,8 +211,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `available`(start_date_to_check TIMESTAMP, end_date_to_check TIMESTAMP)
 BEGIN
 	SELECT *
-	FROM vehicles 
-	WHERE 'active' = true AND license_plate NOT IN (
+	FROM vehicles
+	WHERE _active = true AND license_plate NOT IN (
 			SELECT vehicle_id
 			FROM bookings
 			WHERE (start_date_to_check BETWEEN start_date AND end_date) OR (end_date_to_check BETWEEN start_date AND end_date)
@@ -316,6 +317,27 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `myStoredProcedure` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `myStoredProcedure`(in targa varchar(7))
+BEGIN
+
+SELECT * FROM vehicles WHERE license_plate = targa;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `new_booking` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -372,4 +394,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-04 17:09:03
+-- Dump completed on 2022-07-20  9:38:46
